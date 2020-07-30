@@ -3,17 +3,20 @@ const app = express();
 const { ApolloServer, gql } = require('apollo-server-express');
 const { v4 } = require('uuid');
 
+// Add title in bd
 const db = {
   todos: [
     {
       _id: v4(),
-      description: 'Nadar no mar',
+      title: 'Nadar no mar',
+      description: 'Nadar ao menos 5km por dia',
       completed: false
     },
     {
       _id: v4(),
-      description: 'Passear com o dog',
-      completed: false
+      title: 'Passear com o dog',
+      description: 'Doggo está engordando e precisa se exercitar',
+      completed: true
     }
   ]
 };
@@ -21,23 +24,20 @@ const db = {
 // schema - typeDefs
 const typeDefs = gql`
   type Query {
-    test: String
     todos: [Todo]
   }
 
   type Todo {
     _id: ID
+    title: String!
     description: String
-    completed: Boolean
+    completed: Boolean!
   }
 `;
 
 // resolvers
 const resolvers = {
   Query: {
-    test: function () {
-      return 'test retornado';
-    },
     todos: function () {
       return db.todos;
     }

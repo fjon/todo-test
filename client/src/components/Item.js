@@ -1,17 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Item({ todo }) {
   return (
     <li>
-      <p
+      <Link
         style={{
           backgroundColor: todo.completed ? 'green' : 'red',
           width: '300px',
           color: '#fff'
         }}
+        to={`/todo/${todo._id}`}
       >
-        {todo.description}
-      </p>
+        {todo.title}
+      </Link>
     </li>
   );
 }

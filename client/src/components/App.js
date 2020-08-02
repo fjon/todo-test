@@ -11,6 +11,7 @@ function App() {
   useEffect(() => {
     (async function () {
       const todos = await (await loadTodos()).data.todos;
+      console.log('TODOS', todos);
       setTodos(todos);
     })();
   }, []);
@@ -21,7 +22,7 @@ function App() {
 
   function addTodo(todo) {
     const todosCopy = [...todos];
-    todosCopy.push({ _id: uuidv4(), description: todo, completed: false });
+    todosCopy.push({ _id: uuidv4(), title: todo, description: '...', completed: false });
     setTodos(todosCopy);
   }
 

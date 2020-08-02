@@ -10,7 +10,10 @@ function Item({ todo }) {
           width: '300px',
           color: '#fff'
         }}
-        to={`/todo/${todo._id}`}
+        to={{
+          pathname: `/todo/${todo._id}`,
+          state: { todo }
+        }}
       >
         {todo.title}
       </Link>

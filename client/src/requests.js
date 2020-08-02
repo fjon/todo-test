@@ -20,3 +20,16 @@ export async function loadTodos() {
   `;
   return await client.query({ query });
 }
+
+export async function loadJob(id) {
+  const query = gql`
+    query QueryTodo($id: ID!) {
+      todo(id: $id) {
+        _id
+        title
+      }
+    }
+  `;
+  const job = await client.query({ query, variables: { id } });
+  console.log(job);
+}

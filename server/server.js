@@ -1,30 +1,22 @@
+const fs = require('fs');
+const path = require('path');
 const express = require('express');
 const app = express();
 const { ApolloServer, gql } = require('apollo-server-express');
 const { v4 } = require('uuid');
 
-// Add title in bd
-const db = {
-  todos: [
-    {
-      _id: v4(),
-      title: 'Nadar no mar',
-      description: 'Nadar ao menos 5km por dia',
-      completed: false
-    },
-    {
-      _id: v4(),
-      title: 'Passear com o dog',
-      description: 'Doggo está engordando e precisa se exercitar',
-      completed: true
-    }
-  ]
-};
+// const obj = { nome: 'kon' };
+
+// // write
+// fs.writeFile(path.join(__dirname, 'database', 'teste.json'), JSON.stringify(obj), err => {
+//   if (err) throw err;
+// });
 
 // schema - typeDefs
 const typeDefs = gql`
   type Query {
     todos: [Todo]
+    todo(id: ID!): Todo
   }
 
   type Todo {
@@ -36,17 +28,17 @@ const typeDefs = gql`
 `;
 
 // resolvers
-const resolvers = {
-  Query: {
-    todos: function () {
-      return db.todos;
-    }
-  }
-};
+// const resolvers = {
+//   Query: {
+//     todos: function () {
+//       return db.todos;
+//     }
+//   }
+// };
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers: require('./graphql/resolvers')
 });
 
 server.applyMiddleware({ app, path: '/graph' });

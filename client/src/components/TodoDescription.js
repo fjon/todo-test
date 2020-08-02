@@ -1,11 +1,13 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 function TodoDescription() {
-  const { id } = useParams();
+  const {
+    state: { todo }
+  } = useLocation();
   return (
     <div>
-      <h1>Todo Description of: {id}</h1>
+      <h1>Description: {todo.description}</h1>
     </div>
   );
 }

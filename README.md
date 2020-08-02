@@ -6,3 +6,5 @@ Frontend: Reactjs
 
 
 Server: Node + Graphql
+
+Usando .json local no server como DB. Mais tarde adicionarei MongoDB.

@@ -7,6 +7,16 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
+export async function createJob(input) {
+  const mutation = gql`
+    mutation CreateTodoMutation($input: CreateTodoInput) {
+      createTodo(input: $input)
+    }
+  `;
+  const res = await client.mutate({ mutation, variables: { input } });
+  console.log(res);
+}
+
 export async function loadTodos() {
   const query = gql`
     query {

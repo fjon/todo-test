@@ -1,18 +1,10 @@
 const fs = require('fs');
 const path = require('path');
+const dotenv = require('dotenv').config();
 const express = require('express');
 const app = express();
 const { ApolloServer, gql } = require('apollo-server-express');
-const { v4 } = require('uuid');
 
-// const obj = { nome: 'kon' };
-
-// // write
-// fs.writeFile(path.join(__dirname, 'database', 'teste.json'), JSON.stringify(obj), err => {
-//   if (err) throw err;
-// });
-
-// schema - typeDefs
 const typeDefs = gql`
   type Query {
     todos: [Todo]
@@ -25,16 +17,17 @@ const typeDefs = gql`
     description: String
     completed: Boolean!
   }
-`;
 
-// resolvers
-// const resolvers = {
-//   Query: {
-//     todos: function () {
-//       return db.todos;
-//     }
-//   }
-// };
+  type Mutation {
+    createTodo(input: CreateTodoInput): ID
+  }
+
+  input CreateTodoInput {
+    title: String
+    description: String
+    completed: Boolean
+  }
+`;
 
 const server = new ApolloServer({
   typeDefs,
@@ -43,6 +36,6 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app, path: '/graph' });
 
-app.listen('3333', () => {
-  console.log('Server is UP');
+app.listen(process.env.PORT, () => {
+  console.log('Server is UP', process.env.PORT);
 });
